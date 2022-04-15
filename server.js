@@ -1,9 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const multer = require("multer");
+const controllers = require("./controllers");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const upload = multer();
 
 dotenv.config();
 
@@ -13,5 +16,8 @@ mongoose
   )
   .then(() => console.log("MongoDB Successfully Connected!"))
   .catch((err) => console.log(err));
+
+app.get("/all", controllers.allVery);
+app.post("/new", upload.none(), controllers.newVery);
 
 app.listen(PORT);
